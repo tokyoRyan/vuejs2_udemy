@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>VueJS Playground</title>
+
+    <link rel="stylesheet" href="main.css" />
+    <!--<link rel="icon" href="images/favicon.png" />-->
+</head>
+
+<body>
+<div id="app">
+    <div class="demo"
+         @click="attachRed = !attachRed"
+         :class="divClasses"></div>
+    <div class="demo" :class="{red: attachRed}"></div>
+    <div class="demo" :class="[color,{red: attachRed}]"></div>
+    <hr>
+    <input type="text" v-model="color">
+</div>
+
+<script src="vuejs_prod.js"></script>
+<script type="text/javascript">
+    new Vue({
+        el: '#app',
+        data: {
+            attachRed: false,
+            color: 'green'
+        },
+        computed: {
+            divClasses: function(){
+                return {
+                    red: this.attachRed,
+                    blue: !this.attachRed
+                };
+            }
+        }
+    });
+</script>
+</body>
+</html>

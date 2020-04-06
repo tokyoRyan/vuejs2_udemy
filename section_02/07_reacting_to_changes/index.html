@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>VueJS Playground</title>
+
+    <!--<link rel="stylesheet" href="css/main.css" />
+    <link rel="icon" href="images/favicon.png" /> -->
+</head>
+
+<body>
+<div id="app">
+    <button v-on:click="counter++">Increase</button>
+    <button v-on:click="counter--">Decrease</button>
+    <button v-on:click="secondCounter++">Increase Second</button>
+    <p>Counter: {{ counter }} | {{ secondCounter }}</p>
+    <p>Result: {{ checkResult() }} |  {{ output }}</p>
+</div>
+
+<script src="vuejs_prod.js"></script>
+<script type="text/javascript">
+    new Vue({
+        el: '#app',
+        data: {
+            counter: 0,
+            secondCounter: 0
+        },
+        watch: {
+            counter: function(){
+                var vm = this;
+                setTimeout(function(){
+                    vm.counter = 0;
+                },2000);
+            }
+        },
+        computed: {
+            output: function(){
+                console.log('computed');
+                return this.counter > 5 ? 'Greater than 5' : 'smaller than 5';
+            }
+        },
+        methods: {
+            checkResult: function(){
+                console.log('methods');
+                return this.counter > 5 ? 'Greater than 5' : 'smaller than 5';
+            }
+        }
+    });
+</script>
+</body>
+</html>

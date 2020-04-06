@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>VueJS Playground</title>
+
+    <link rel="stylesheet" href="main.css" />
+    <!--<link rel="icon" href="images/favicon.png" />-->
+</head>
+
+<body>
+<div id="exercise">
+    <!-- 1) Start the Effect with the Button. The Effect should alternate the "highlight" or "shrink"
+    class on each new setInterval tick (attach respective class to the div with id "effect" below) -->
+    <div>
+        <button @click="startEffect">Start Effect</button>
+        <div id="effect" :class="{highlight: isHighlighted}"></div>
+    </div>
+    <!-- 2) Create a couple of CSS classes and attach them via the array syntax -->
+    <div :class="['bold', 'blue']">I got no class :(</div>
+    <!-- 3) Let the user enter a class (create some example classes) and attach it -->
+    <div>
+        <input type="text" v-model="bcolor" :class="bcolor">
+        <div></div>
+    </div>
+    <!-- 4) Let the user enter a class and enter true/ false for another class (create some example classes) and attach the classes -->
+    <div>
+        <input type="text" :class="[bcolor, {'light_pink': applyStyles}]">
+        <input type="text" v-model="applyStyles" :class="[bcolor, {'light_pink': applyStyles}]">
+        <div></div>
+    </div>
+    <!-- 5) Repeat 3) but now with values for styles (instead of class names). Attach the respective styles.  -->
+    <div>
+        <input type="text" v-model="fontColor" :style="{color: fontColor}">
+        <div></div>
+    </div>
+    <!-- 6) Create a simple progress bar with setInterval and style bindings. Start it by hitting the below button. -->
+    <div>
+        <button @click="initProgressBar">Start Progress</button>
+        <div id="bar" :style="{width: barWidth + 'px'}"></div>
+    </div>
+</div>
+
+<script src="vuejs_prod.js"></script>
+<script type="text/javascript">
+    new Vue({
+        el: '#exercise',
+        data: {
+            isHighlighted: false,
+            bcolor: 'green',
+            applyStyles: true,
+            fontColor: 'black',
+            barWidth: 0
+
+        },
+        computed: {
+        },
+        methods: {
+            startEffect: function() {
+                var vm = this;
+                setInterval(function(){
+                    vm.isHighlighted = !vm.isHighlighted;
+                }, 3000);
+            },
+            initProgressBar: function() {
+                var vm = this;
+                setInterval(function(){
+                    if(vm.barWidth <= 580) {
+                        vm.barWidth += 40;
+                    }
+                }, 1000);
+            }
+        }
+    });
+</script>
+</body>
+</html>

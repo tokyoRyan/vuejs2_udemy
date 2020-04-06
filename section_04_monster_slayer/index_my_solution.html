@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Monster Slayer</title>
+    <script src="https://npmcdn.com/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="css/foundation.min.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div id="app">
+    <section class="row">
+        <div class="small-6 columns">
+            <h1 class="text-center">YOU</h1>
+            <div class="healthbar">
+                <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;"
+                :style="youWidth">
+                    <span>{{ you.health }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="small-6 columns">
+            <h1 class="text-center">MONSTER</h1>
+            <div class="healthbar">
+                <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;"
+                :style="monsterWidth">
+                    <span>{{ monster.health }}</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="row controls" v-if="!gameStarted">
+        <div class="small-12 columns">
+            <button @click="startGame" id="start-game">START NEW GAME</button>
+        </div>
+    </section>
+    <section class="row controls" v-if="gameStarted">
+        <div class="small-12 columns">
+            <button id="attack" @click="btnAttack">ATTACK</button>
+            <button id="special-attack" @click="btnSpecialAttack">SPECIAL ATTACK</button>
+            <button id="heal" @click="btnHeal">HEAL</button>
+            <button id="give-up" @click="giveUp">GIVE UP</button>
+        </div>
+    </section>
+    <section class="row log" v-if="gameStarted">
+        <div class="small-12 columns">
+            <ul>
+                <li v-for="obj in log" :class="obj.cssClass">{{obj.message}}</li>
+            </ul>
+        </div>
+    </section>
+</div>
+
+<script src="vuejs_prod.js"></script>
+<script type="text/javascript">
+    new Vue({
+        el: '#app',
+        data : {
+            gameStarted: false,
+            you: { health: 100, isYou: true },
+            monster:  {health: 100, isYou: false },
+            log: []
+        },
+        computed: {
+            youWidth: function(){
+                return this.you.health + '%';
+            },
+            monsterWidth: function(){
+                return this.monster.health + '%';
+            }
+        },
+        methods: {
+            btnAttack: function(){
+                this.normalAttack(this.monster, this.you);
+                this.normalAttack(this.you, this.monster);
+            },
+            btnSpecialAttack: function(){
+                this.specialAttack(this.monster, this.you);
+                this.normalAttack(this.you, this.monster);
+            },
+            btnHeal: function(){
+                const randomHealAmount = this.getRandomDmg(20);
+                this.you.health = this.you.health+randomHealAmount;
+                this.log.push({message: `PLAYER HEALS FOR ${randomHealAmount}`, cssClass: 'player-turn'});
+
+                this.normalAttack(this.you, this.monster);
+            },
+            startGame: function(){
+                this.gameStarted = !this.gameStarted;
+            },
+            giveUp: function(){
+                this.you.health = 0;
+                this.gameOver();
+            },
+            init: function(){
+                you.health = 100;
+                monster.health = 100;
+            },
+            normalAttack: function(attackee, attacker){
+                const dmg = this.getRandomDmg(15);
+                this.attack(attackee, attacker, dmg);
+            },
+            specialAttack: function(attackee, attacker){
+                const dmg = this.getRandomDmg(30);
+                this.attack(attackee, attacker, dmg);
+            },
+            attack: function(attackee, attacker, dmg){
+                attackee.health = attackee.health-dmg;
+                if(attackee.health <= 0){
+                    this.gameOver();
+                }
+
+                if(attacker.isYou){
+                    this.logTurn('you', dmg);
+                } else {
+                    this.logTurn('monster', dmg);
+                }
+            },
+            getRandomDmg: function(max){
+                return Math.floor(Math.random() * Math.floor(max));
+            },
+            gameOver: function(){
+                if(this.monster.health <= 0) {
+                    alert('You won!');
+                } else {
+                    alert('You lost!');
+                }
+            },
+            logTurn: function(player, dmg){
+                const playerString = (player === 'you')? 'PLAYER' : 'MONSTER';
+                const opponentString = (player === 'you')? 'MONSTER' : 'PLAYER';
+                const message = `${playerString} HITS ${opponentString} FOR ${dmg}`;
+                const cssClass = (player === 'you')? 'player-turn' : 'monster-turn'
+
+                this.log.push({cssClass: cssClass, message: message});
+            }
+        }
+    });
+</script>
+</body>
+</html>

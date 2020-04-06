@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>VueJS Playground</title>
+
+    <!--<link rel="stylesheet" href="css/main.css" />
+    <link rel="icon" href="images/favicon.png" /> -->
+  </head>
+
+  <body>
+    <div id="app">
+        <p>{{ sayHello() }} - <a v-bind:href="link">DuckDuckGo</a></p>
+    </div>
+
+    <script src="vuejs_prod.js"></script>
+    <script type="text/javascript">
+        new Vue({
+            el: '#app',
+            data: {
+                title: 'Hello World',
+                link: 'https://duckduckgo.com'
+            }, 
+            methods: {
+              sayHello: function(){
+                return this.title + ' #@!';
+              }
+            }
+        });
+    </script>
+  </body>
+</html>
