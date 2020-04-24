@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>VueJS Playground</title>
+</head>
+
+<body>
+<div id="app">
+    <my-cmp></my-cmp>
+    <hr>
+    <my-cmp></my-cmp>
+</div>
+
+<div id="app3"></div>
+
+<script src="../vuejs_prod.js"></script>
+<script type="text/javascript">
+
+Vue.component('my-cmp', {
+    data: function() {
+        return { status: 'Critical' };
+    },
+    template: '<p>Server Status: {{ status }}  (<button @click="changeStatus">Change</button>)</p>',
+    methods: {
+        changeStatus: function(){
+            this.status = 'Normal';
+        }
+    }
+});
+
+new Vue({
+    el: '#app'
+});
+</script>
+</body>
+</html>
