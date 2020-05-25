@@ -6,12 +6,12 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "fix-lint": "vue-cli-service lint --fix"
+    "fix-lint": "vue-cli-service lint --fix",
+    "format": "prettier --write \"{**/*,*}.{js,ts,jsx,tsx,vue}\""
   },
   "dependencies": {
     "bootstrap": "^4.5.0",
     "core-js": "^3.6.4",
-    "jquery": "^3.5.1",
     "lodash": "^4.17.15",
     "popper.js": "^1.16.1",
     "vue": "^2.6.11",
@@ -31,5 +31,12 @@
     "vue-template-compiler": "^2.6.11",
     "@vue/cli-plugin-router": "~4.3.0",
     "@vue/cli-plugin-vuex": "~4.3.0"
+  },
+  "prettier": {
+    "semi": false,
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true
   }
 }

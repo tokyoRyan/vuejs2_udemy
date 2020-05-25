@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Stock Trader</a>
+    <router-link to="/" class="navbar-brand">Stock Trader</router-link>
     <button
       class="navbar-toggler"
       type="button"
@@ -11,12 +11,22 @@
 
     <div :class="['navbar-collapse', { collapse: toggleNav }]">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <router-link to="/portfolio" class="nav-link">Portfolio</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/stocks" class="nav-link">Stocks</router-link>
-        </li>
+        <router-link
+          tag="li"
+          to="/portfolio"
+          class="nav-item"
+          active-class="active"
+        >
+          <a class="nav-link">Portfolio</a>
+        </router-link>
+        <router-link
+          tag="li"
+          to="/stocks"
+          class="nav-item"
+          active-class="active"
+        >
+          <a class="nav-link">Stocks</a>
+        </router-link>
       </ul>
       <ul class="navbar-nav">
         <li class="nav-item">
@@ -43,7 +53,7 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#" tabindex="-1" aria-disabled="true"
-            ><strong>{{ `Funds: ${funds}` }}</strong></a
+            ><strong>{{ `Funds: ${stocks}` }}</strong></a
           >
         </li>
       </ul>
@@ -59,14 +69,12 @@ export default {
   data() {
     return {
       toggleNav: false,
-    };
+    }
   },
   computed: {
-    ...mapGetters(['funds'])
-  }
-};
+    ...mapGetters(['stocks']),
+  },
+}
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -11,10 +11,9 @@
 import Header from './components/shared/Header'
 export default {
   components: {
-    'app-header': Header
-  }
+    'app-header': Header,
+  },
 }
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

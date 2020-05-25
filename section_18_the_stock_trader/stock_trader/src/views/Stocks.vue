@@ -2,37 +2,35 @@
   <div>
     <h3>Stocks</h3>
     <div class="row">
-      <div class="col-lg-6 col-md-6 col-xs-12">
-        <app-buy-stock-item :name="'BMW'" :price="110"></app-buy-stock-item>
-      </div>
-      <div class="col-lg-6 col-md-6 col-xs-12">
-        <app-buy-stock-item :name="'Google'" :price="200"></app-buy-stock-item>
-      </div>
-      <div class="col-lg-6 col-md-6 col-xs-12">
-        <app-buy-stock-item :name="'Apple'" :price="250"></app-buy-stock-item>
-      </div>
-      <div class="col-lg-6 col-md-6 col-xs-12">
-        <app-buy-stock-item :name="'Twitter'" :price="8"></app-buy-stock-item>
-      </div>
+      <app-buy-stock-item
+        v-bind:key="stock.id"
+        v-for="stock in stocks"
+        :stock="stock"
+      ></app-buy-stock-item>
     </div>
   </div>
 </template>
 
 <script>
-import { createNamespacedHelpers } from "vuex";
-import BuyStockItem from "../components/stocks/BuyStockItem";
-const { mapActions } = createNamespacedHelpers("stocks");
+import { createNamespacedHelpers } from 'vuex'
+import BuyStockItem from '../components/stocks/BuyStockItem'
+const { mapActions } = createNamespacedHelpers('stocks')
 export default {
+  data() {
+    return {
+      stocks: [],
+    }
+  },
   methods: {
-    ...mapActions(["initStore"]),
+    ...mapActions(['initStore']),
   },
   mounted() {
-    this.initStore();
+    this.initStore()
   },
   components: {
-    "app-buy-stock-item": BuyStockItem,
+    'app-buy-stock-item': BuyStockItem,
   },
-};
+}
 </script>
 
 <style scoped></style>

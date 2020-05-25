@@ -1,22 +1,31 @@
+import stocksData from '../../data/stocks'
+
 export default {
   namespaced: true,
   state: () => ({
-    funds: 0,
+    stocks: 0,
   }),
   getters: {
-    funds: (state) => {
-      return state.funds;
+    stocks: state => {
+      return state.stocks
     },
   },
   mutations: {
-    SET_FUNDS: (state, funds) => {
-      state.funds = funds;
+    SET_STOCKS(state, stocks) {
+      state.stocks = stocks
     },
+    RND_STOCKS() {},
   },
   actions: {
-    initStore: ({ commit }) => {
-      console.log("inside of stocks.initStore()");
-      commit("SET_FUNDS", 42);
+    // eslint-disable-next-line no-unused-vars
+    buyStock({ commit }, order) {
+      commit()
+    },
+    initStocks({ commit }) {
+      commit('SET_STOCKS', stocksData)
+    },
+    randomizeStocks({ commit }) {
+      commit('RND_STOCKS')
     },
   },
-};
+}
