@@ -2,28 +2,17 @@
   <div>
     <h3>Portfolio</h3>
     <div class="row">
-      <app-sell-stock-item
-        :name="'BMW'"
-        :price="110"
-        :quantity="10"
-      ></app-sell-stock-item>
+      <app-portfolio :name="'BMW'" :price="110" :quantity="10"></app-portfolio>
     </div>
   </div>
 </template>
 
 <script>
-import { createNamespacedHelpers } from 'vuex'
-import SellStockItem from '../components/stocks/SellStockItem'
-const { mapActions } = createNamespacedHelpers('stocks')
+import Portfolio from '../components/portfolio/Portfolio'
 export default {
-  mounted() {
-    this.initStore()
-  },
-  methods: {
-    ...mapActions(['initStore']),
-  },
+  methods: {},
   components: {
-    'app-sell-stock-item': SellStockItem,
+    'app-portfolio': Portfolio,
   },
 }
 </script>

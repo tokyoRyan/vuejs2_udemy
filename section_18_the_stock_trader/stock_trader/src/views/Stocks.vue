@@ -2,33 +2,28 @@
   <div>
     <h3>Stocks</h3>
     <div class="row">
-      <app-buy-stock-item
+      <app-stock
         v-bind:key="stock.id"
         v-for="stock in stocks"
         :stock="stock"
-      ></app-buy-stock-item>
+      ></app-stock>
     </div>
   </div>
 </template>
 
 <script>
+import Stock from '../components/stocks/Stock'
 import { createNamespacedHelpers } from 'vuex'
-import BuyStockItem from '../components/stocks/BuyStockItem'
-const { mapActions } = createNamespacedHelpers('stocks')
+const { mapGetters } = createNamespacedHelpers('stocks')
 export default {
   data() {
-    return {
-      stocks: [],
-    }
+    return {}
   },
-  methods: {
-    ...mapActions(['initStore']),
-  },
-  mounted() {
-    this.initStore()
+  computed: {
+    ...mapGetters(['stocks']),
   },
   components: {
-    'app-buy-stock-item': BuyStockItem,
+    'app-stock': Stock,
   },
 }
 </script>

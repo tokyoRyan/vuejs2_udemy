@@ -8,10 +8,18 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex'
+const { mapActions } = createNamespacedHelpers('stocks')
 import Header from './components/shared/Header'
 export default {
   components: {
     'app-header': Header,
+  },
+  methods: {
+    ...mapActions(['initStocks']),
+  },
+  created() {
+    this.initStocks()
   },
 }
 </script>
