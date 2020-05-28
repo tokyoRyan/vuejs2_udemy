@@ -1,24 +1,25 @@
 <template>
   <div class="col-md-4 col-xs-6">
     <div class="card mb-4">
-      <div class="card-header bg-success text-light">
+      <div class="card-header bg-info text-light">
         <strong>{{ stock.name }}</strong>
-        <small>{{ `(Price: ${stock.price})` }}</small>
+        <small>{{
+          `(Price: ${stock.price}|Quantity: ${stock.quantity})`
+        }}</small>
       </div>
       <div class="card-body">
         <input
           type="number"
           v-model="quantity"
           class="form-control float-left"
-          :class="{ danger: insufficientFunds }"
           placeholder="Quantity"
         />
         <button
-          class="btn btn-success float-right"
-          @click="buyStockClick"
-          :disabled="quantity <= 0 || insufficientFunds"
+          class="btn btn-danger float-right"
+          @click="onSellClicked"
+          :disabled="quantity <= 0 || insufficientQuantity"
         >
-          Buy
+          Sell
         </button>
       </div>
     </div>
@@ -27,7 +28,7 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex'
-const { mapActions } = createNamespacedHelpers('stocks')
+const { mapActions } = createNamespacedHelpers('portfolio')
 export default {
   props: ['stock'],
   data() {
@@ -36,22 +37,19 @@ export default {
     }
   },
   computed: {
-    funds() {
-      return this.$store.getters['portfolio/funds']
-    },
-    insufficientFunds() {
-      return this.quantity * this.stock.price > this.funds
+    insufficientQuantity() {
+      return this.quantity > this.stock.quantity
     },
   },
   methods: {
-    ...mapActions(['buyStock']),
-    buyStockClick() {
+    ...mapActions(['sellStock']),
+    onSellClicked() {
       const order = {
         stockId: this.stock.id,
         stockPrice: this.stock.price,
         quantity: this.quantity,
       }
-      this.buyStock(order)
+      this.sellStock(order)
       this.quantity = 0
     },
   },
@@ -61,8 +59,5 @@ export default {
 <style scoped>
 .card-body input[type='number'] {
   width: auto;
-}
-.danger {
-  border: 1px solid red;
 }
 </style>

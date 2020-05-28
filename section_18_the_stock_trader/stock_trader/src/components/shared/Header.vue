@@ -30,7 +30,12 @@
       </ul>
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="#" tabindex="-1" aria-disabled="true"
+          <a
+            class="nav-link"
+            href="#"
+            tabindex="-1"
+            aria-disabled="true"
+            @click="endDay"
             >End Day</a
           >
         </li>
@@ -47,13 +52,13 @@
             Save & Load
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Save</a>
-            <a class="dropdown-item" href="#">Load</a>
+            <a class="dropdown-item" href="#" @click="saveData">Save</a>
+            <a class="dropdown-item" href="#" @click="loadData">Load</a>
           </div>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#" tabindex="-1" aria-disabled="true"
-            ><strong>{{ `Funds: ${stocks}` }}</strong></a
+            ><strong>Funds {{ funds | currency }}</strong></a
           >
         </li>
       </ul>
@@ -64,7 +69,8 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex'
-const { mapGetters } = createNamespacedHelpers('stocks')
+const { mapGetters } = createNamespacedHelpers('portfolio')
+const { mapActions } = createNamespacedHelpers('stocks')
 export default {
   data() {
     return {
@@ -72,7 +78,19 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['stocks']),
+    ...mapGetters(['funds']),
+  },
+  methods: {
+    ...mapActions(['randomizeStocks']),
+    endDay() {
+      this.randomizeStocks()
+    },
+    loadData() {
+      console.log('inside of loadData')
+    },
+    saveData() {
+      console.log('inside of saveData')
+    },
   },
 }
 </script>

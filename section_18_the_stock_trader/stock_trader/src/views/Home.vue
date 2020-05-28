@@ -5,13 +5,13 @@
     <p>You may Save & Load your data</p>
     <p>Click on 'End Day' to begin a new day!</p>
     <hr class="my-4" />
-    <p class="font-weight-bold">{{ `Your Funds: ${funds}` }}</p>
+    <p class="font-weight-bold">Your Funds: {{ funds | currency }}</p>
   </div>
 </template>
 
 <script>
 import { createNamespacedHelpers } from 'vuex'
-const { mapGetters } = createNamespacedHelpers('stocks')
+const { mapGetters } = createNamespacedHelpers('portfolio')
 export default {
   computed: {
     ...mapGetters(['funds']),
